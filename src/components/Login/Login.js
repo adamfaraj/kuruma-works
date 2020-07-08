@@ -36,6 +36,7 @@ export default function Login({screenProps}) {
       console.log(user)
       screenProps.setUser(user);
       screenProps.setAuthStatus(true);
+      localStorage.setItem('isSignedIn', true);
       // console.log('user ', user);
       // console.log('state ', this.state);
       // render() {

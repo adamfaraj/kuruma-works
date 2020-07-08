@@ -7,12 +7,15 @@ import {
 } from "react-router-dom";
 
 import Amplify from 'aws-amplify';
+import { withAuthenticator, AmplifySignOut, AmplifySignIn, AmplifyAuthenticator } from '@aws-amplify/ui-react';
 import awsConfig from './aws-exports';
 
 import Login from './components/Login/Login';
 import Home from './components/Home/Home';
 import './App.css';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Mechanics from './components/Mechanics/Mechanics';
+import Profile from './components/Profile/Profile';
 
 // AWS amplify stuff
 Amplify.configure({
@@ -25,45 +28,38 @@ Amplify.configure({
 });
 
 
-function App() {
+const App = () => (
   // React Hooks
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+    <AmplifyAuthenticator>
+      <Router>
+        <div className="wrapper">
 
-  function setAuthStatus(authenticated) {
-    // this.setState({ isAuthenticated: authenticated });
-    setIsAuthenticated(authenticated);
-  }
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/mechanics">
+              <Mechanics />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
 
-  function setAWSUser(user) {
-    // this.setState({ user: user });
-    setUser(user);
-    console.log('app state', this.state);
-  }
+          <ul>
+            <li>
+              <Link to="/">Your Kuruma</Link>
+            </li>
+            <li>
+              <Link to="/mechanics">Mechanics</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          </ul>
+        </div>
+      </Router>
+    </AmplifyAuthenticator>
+)
 
-  const authProps = {
-    isAuthenticated: isAuthenticated,
-    user: user,
-    setAuthStatus: setAuthStatus,
-    setUser: setAWSUser
-  }
-
-  if(isAuthenticated) {
-    return <Home />;
-  }
-  return(
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Login screenProps={authProps}/>
-        </Route>
-        <Route path="/forgot-password">
-          <ForgotPassword />
-        </Route>
-      </Switch>
-    </Router>
-  );
-}
-
-export default App;
+export default withAuthenticator(App);

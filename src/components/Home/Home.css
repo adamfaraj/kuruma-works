@@ -1,0 +1,8 @@
+.home-container {
+  background-color: #000;
+  min-height: 90vh;
+}
+
+.home-container h1 {
+  color: #fff;
+}

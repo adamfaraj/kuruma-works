@@ -1,9 +1,13 @@
 import React from 'react'
+import { Button } from '@material-ui/core'
 
-export default function Home() {
+import './Home.css';
+
+export default function Home({screenProps}) {
+
   return (
-    <div>
-      <h1>Welcome</h1>
+    <div className="home-container">
+      <h1>Kuruma Works</h1>
     </div>
   )
 }
