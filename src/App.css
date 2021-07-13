@@ -1,9 +1,27 @@
-ul {
+.navigation {
   /* position: fixed; */
+  background-color: #555555;
   display: flex;
   list-style-type: none;
   justify-content: space-evenly;
   padding: 0;
+}
+
+.navigation li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigation li .MuiSvgIcon-root {
+  fill: white;
+}
+
+.navigation a {
+  text-decoration: none;
+}
+.navigation a:visited {
+    color: white;
 }
 
 h1 {
